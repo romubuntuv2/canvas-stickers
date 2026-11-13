@@ -1,0 +1,221 @@
+.sticker-palette {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  z-index: 10;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  width: 120px;
+  height: 60vh;
+  overflow-y: auto;
+  padding: 8px;
+  background: var(--background-primary);
+  border: 1px solid var(--background-modifier-border);
+  border-radius: var(--radius-m);
+  box-shadow: var(--shadow-s);
+}
+
+.sticker-palette.sticker-hidden { display: none; }
+
+.stickers-palette:not(:hover) {
+    opacity: .5;
+}
+
+.sticker-palette-item {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+  cursor: pointer;
+  border-radius: var(--radius-s);
+}
+.sticker-palette-item:hover { background: var(--background-modifier-hover); }
+.sticker-palette-empty { color: var(--text-muted); font-size: var(--font-ui-small); }
+
+
+
+.sticker-palette-section + .sticker-palette-section {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid var(--background-modifier-border);
+}
+
+.sticker-palette-title {
+  margin-bottom: 6px;
+  font-size: var(--font-ui-smaller);
+  font-weight: var(--font-semibold);
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.sticker-palette-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.sticker-palette-item {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+  cursor: pointer;
+  border-radius: var(--radius-s);
+}
+.sticker-palette-item:hover { background: var(--background-modifier-hover); }
+.sticker-palette-empty { color: var(--text-muted); font-size: var(--font-ui-small); }
+
+
+
+.sticker-node  .canvas-node-container {
+  background: transparent;
+  border-color: transparent;
+  box-shadow: none;
+}
+.sticker-node .canvas-node-label { display: none; }
+.sticker-node .canvas-node-container { rotate: var(--sticker-rot, 0deg); }
+.sticker-node img { filter: drop-shadow(0 2px 4px rgba(0,0,0,.35)); }
+
+
+
+/* TOOLTIP CUSTOM FOR STICKER NODE */
+.canvas-menu-stickers .canvas-menu .clickable-icon:has(.lucide-palette),
+.canvas-menu-stickers .canvas-menu #menu-option-border {
+  display: none;
+}
+
+/* HIDE CONNEXION NODE */
+.hovering-sticker .canvas-node-interaction-layer .canvas-node-connection-point,
+/* sticker(s) sélectionné(s) : classe posée par stickerMenu.ts */
+.only-stickers-selected .canvas-node-interaction-layer .canvas-node-connection-point {
+  display: none !important;
+}
+
+
+
+
+
+
+.sticker-stamping,
+.sticker-stamping * {
+  cursor: none !important;
+}
+
+.sticker-ghost {
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: none;
+  object-fit: contain;
+  pointer-events: none;
+  opacity: 0.9;
+  z-index: var(--layer-tooltip, 9999);
+}
+.sticker-ghost { display: none; }
+.sticker-ghost.is-visible { display: block; }
+
+.sticker-palette-item.is-active {
+  background: var(--background-modifier-hover);
+  box-shadow: inset 0 0 0 2px var(--interactive-accent);
+}
+
+
+
+/* ------------------------------------ STICKER FAVORITE  ------------------------------------ */
+/* ------------------------------------------------------------------------------------------- */
+
+/* .sticker-favorites {
+  position: absolute;
+
+  z-index: 10;
+  top: 0;
+  left: 0;
+
+  width: 250px;
+  height: 250px;
+
+}
+
+.sticker-favorites.sticker-hidden { display: none; }
+
+
+.sticker-favorites-item {
+  z-index: 10;
+  width: 50px;
+  height: 50px;
+} */
+
+
+.sticker-favorites {
+  --d: 2px; /* demi-écart entre deux parts */
+
+  position: fixed;
+  z-index: 10;
+  top: 0;
+  left: 0;
+
+  width: 180px;
+  height: 180px;
+
+  border-radius: 50%;
+  background: var(--background-primary);
+  box-shadow: var(--shadow-s), 0 0 0 1px var(--background-modifier-border);
+  animation: sticker-wheel-in 120ms ease-out;
+}
+.sticker-favorites.sticker-hidden { display: none; }
+
+@keyframes sticker-wheel-in { from { transform: scale(0.85); opacity: 0; } }
+
+/* ---------- Les 8 parts ---------- */
+.sticker-wheel-slot {
+  position: absolute;
+  inset: 0;
+  cursor: pointer; 
+  transform: rotate(calc(var(--i) * 45deg));
+
+
+  clip-path: polygon(
+    calc(50% + var(--d)) calc(50% - var(--d) * 2.414),
+    calc(50% + var(--d)) 0,
+    calc(100% - var(--d) * 1.414) 0
+  );
+}
+.sticker-wheel-slot:nth-child(1) { --i: 0; }
+.sticker-wheel-slot:nth-child(2) { --i: 1; }
+.sticker-wheel-slot:nth-child(3) { --i: 2; }
+.sticker-wheel-slot:nth-child(4) { --i: 3; }
+.sticker-wheel-slot:nth-child(5) { --i: 4; }
+.sticker-wheel-slot:nth-child(6) { --i: 5; }
+.sticker-wheel-slot:nth-child(7) { --i: 6; }
+.sticker-wheel-slot:nth-child(8) { --i: 7; }
+
+/* fond de la part, en anneau (rayon int. 90px, ext. 140px) */
+.sticker-wheel-slot::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--background-secondary);
+  transition: background 0.1s;
+  -webkit-mask: radial-gradient(circle, transparent 9.5px, #000 10.5px, #000 84.5px, transparent 85.5px);
+          mask: radial-gradient(circle, transparent 9.5px, #000 10.5px, #000 84.5px, transparent 85.5px);
+}
+.sticker-wheel-slot:hover::before { background: var(--background-modifier-hover); }
+
+/* sticker au milieu de la part (22.5°, rayon 115px), remis droit */
+.sticker-wheel-slot-image {
+  position: absolute;
+  z-index: 15;
+  left: 50%;
+  top: 50%;
+  width: 32px;
+  height: 32px;
+  pointer-events: none;
+  transition: scale 0.1s;
+  transform:
+    translate(-50%, -50%)
+    rotate(22.5deg)
+    translateY(-60px)
+    rotate(calc(-22.5deg - var(--i) * 45deg));
+}
+.sticker-wheel-slot-image:hover { scale: 1.12; }
+
