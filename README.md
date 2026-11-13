@@ -2,6 +2,7 @@
 
 Add stickers to your canvas view to customize your nodes!
 
+![Stars](https://img.shields.io/github/stars/romubuntuv2/canvas-stickers)
 ![License](https://img.shields.io/github/license/romubuntuv2/canvas-stickers)
 ![Downloads](https://img.shields.io/github/downloads/romubuntuv2/canvas-stickers/total)
 
